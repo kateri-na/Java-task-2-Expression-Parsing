@@ -45,8 +45,8 @@ public class PolishNotation {
            }
         }
         //add all remaining from stack operators to postfix expression
-        for (Character operator: operatorsStack) {
-            postfixExpression.add(operator);
+        while (!operatorsStack.isEmpty()){
+            postfixExpression.add(operatorsStack.pop());
         }
     }
     public void setInfExpression(char[] infExpression) {
