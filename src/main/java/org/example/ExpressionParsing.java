@@ -6,6 +6,9 @@ public class ExpressionParsing {
     public ExpressionParsing(String expression){
         this.expression = expression.toCharArray();
     }
+    public char[] getExpression() {
+        return expression;
+    }
     public boolean BracketsCheck(){
        Stack<Character> stack =new Stack<>();
         for (char element: expression) {
