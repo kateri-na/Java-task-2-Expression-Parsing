@@ -39,7 +39,7 @@ public class PolishNotation {
                        operationPriority.get(operatorsStack.peek())>=operationPriority.get(element)){
                    postfixExpression.add(operatorsStack.pop());
                }
-               operatorsStack.pop();
+               operatorsStack.push(element);
            }
         }
         for (Character operator: operatorsStack) {

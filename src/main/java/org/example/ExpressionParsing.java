@@ -4,6 +4,7 @@ import java.util.Stack;
 public class ExpressionParsing {
     private char[] expression;
     public ExpressionParsing(String expression){
+        expression = expression.replaceAll(" ","");
         this.expression = expression.toCharArray();
     }
     public char[] getExpression() {
