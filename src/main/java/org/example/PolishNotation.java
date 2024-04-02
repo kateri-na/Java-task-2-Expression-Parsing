@@ -23,25 +23,28 @@ public class PolishNotation {
         return postfixExpression;
     }
     public void toPostfix(){
-        Stack<Character> operatorsStack = new Stack<>();
-        for (Character element:infixExpression) {
-           if (Character.isDigit(element)){
+        Stack<Character> operatorsStack = new Stack<>(); //create stack, contains expression operators
+        for (Character element:infixExpression) { //look through all expression
+           if (Character.isDigit(element)){ // if finds number, add it immediately to postfix expression
                postfixExpression.add(element);
            } else if (element == '(') {
                operatorsStack.push(element);
-           } else if (element == ')') {
+           } else if (element == ')') { // add to postfix expression all from stack till opening bracket
                while (operatorsStack.size()>0 && operatorsStack.peek()!='('){
                    postfixExpression.add(operatorsStack.pop());
                }
-               operatorsStack.pop(); 
-           } else if (operationPriority.containsKey(element)) {
+               operatorsStack.pop(); //delete opening bracket from stack
+           } else if (operationPriority.containsKey(element)) { //check if element contains in the list of operators
+               //add to postfix expression all higher priority operators from stack
                while (operatorsStack.size()>0 &&
-                       operationPriority.get(operatorsStack.peek())>=operationPriority.get(element)){
+                       (operationPriority.get(operatorsStack.peek())>=operationPriority.get(element))){
                    postfixExpression.add(operatorsStack.pop());
                }
+               //add operator to stack
                operatorsStack.push(element);
            }
         }
+        //add all remaining from stack operators to postfix expression
         for (Character operator: operatorsStack) {
             postfixExpression.add(operator);
         }
