@@ -1,36 +1,36 @@
 package org.example;
 import java.util.*;
 public class PolishNotation {
-    private char[] infixExpression;
-    private ArrayList<Character> postfixExpression;
-    private static final Map<Character, Integer> operationPriority = new HashMap<>();
+    private String[] infixExpression;
+    private ArrayList<String> postfixExpression;
+    private static final Map<String, Integer> operationPriority = new HashMap<>();
     static {
-        operationPriority.put('(',0);
-        operationPriority.put('+',1);
-        operationPriority.put('-',1);
-        operationPriority.put('*',2);
-        operationPriority.put('/',2);
-        operationPriority.put('^',3);
+        operationPriority.put("(",0);
+        operationPriority.put("+",1);
+        operationPriority.put("-",1);
+        operationPriority.put("*",2);
+        operationPriority.put("/",2);
+        operationPriority.put("^",3);
     }
-    public PolishNotation(char[] expression){
+    public PolishNotation(String[] expression){
         infixExpression = expression;
         postfixExpression = new ArrayList<>();
     }
-    public char[] getInfExpression() {
+    public String[] getInfExpression() {
         return infixExpression;
     }
-    public ArrayList<Character> getPostfixExpression() {
+    public ArrayList<String> getPostfixExpression() {
         return postfixExpression;
     }
     public void toPostfix(){
-        Stack<Character> operatorsStack = new Stack<>(); //create stack, contains expression operators
-        for (Character element:infixExpression) { //look through all expression
-           if (Character.isDigit(element)){ // if finds number, add it immediately to postfix expression
+        Stack<String> operatorsStack = new Stack<>(); //create stack, contains expression operators
+        for (String element:infixExpression) { //look through all expression
+           if (element.matches("-?\\d+")){ // if finds number, add it immediately to postfix expression
                postfixExpression.add(element);
-           } else if (element == '(') {
+           } else if (element.equals("(")) {
                operatorsStack.push(element);
-           } else if (element == ')') { // add to postfix expression all from stack till opening bracket
-               while (operatorsStack.size()>0 && operatorsStack.peek()!='('){
+           } else if (element.equals(")")) { // add to postfix expression all from stack till opening bracket
+               while (operatorsStack.size()>0 && !operatorsStack.peek().equals("(")){
                    postfixExpression.add(operatorsStack.pop());
                }
                operatorsStack.pop(); //delete opening bracket from stack
@@ -49,10 +49,10 @@ public class PolishNotation {
             postfixExpression.add(operatorsStack.pop());
         }
     }
-    public void setInfExpression(char[] infExpression) {
+    public void setInfExpression(String[] infExpression) {
         this.infixExpression = infExpression;
     }
-    public void setPostExpression(ArrayList<Character> postExpression) {
+    public void setPostExpression(ArrayList<String> postExpression) {
         this.postfixExpression = postExpression;
     }
 }

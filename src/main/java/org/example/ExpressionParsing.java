@@ -37,9 +37,9 @@ public class ExpressionParsing {
         if(BracketsCheck()){
             PolishNotation polishNotation = new PolishNotation(expression);
             polishNotation.toPostfix();
-            for (Character element: polishNotation.getPostfixExpression()) {
-                if (Character.isDigit(element)){
-                    valuesStack.push((double)Character.getNumericValue(element));
+            for (String element: polishNotation.getPostfixExpression()) {
+                if (element.matches("-?\\d+")){
+                    valuesStack.push((double)Integer.parseInt(element));
                 }
                 else {
                     valuesStack.push(calculateOperation(element,valuesStack.pop(),valuesStack.pop()));
@@ -56,17 +56,17 @@ public class ExpressionParsing {
             throw new IllegalStateException();
         }
     }
-    private double calculateOperation(char operation, double second, double first){
+    private double calculateOperation(String operation, double second, double first){
         switch (operation){
-            case '+':
+            case "+":
                 return first+second;
-            case '-':
+            case "-":
                 return first-second;
-            case '*':
+            case "*":
                 return first*second;
-            case '/':
+            case "/":
                 return first/second;
-            case '^':
+            case "^":
                 return Math.pow(first, second);
             default:
                 throw new IllegalArgumentException();
