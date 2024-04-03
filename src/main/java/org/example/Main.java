@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.Scanner;
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseExpressionException{
         System.out.printf("Введите выражение: ");
         Scanner in = new Scanner(System.in);
         String expression = in.nextLine();

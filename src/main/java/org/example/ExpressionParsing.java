@@ -14,9 +14,9 @@ public class ExpressionParsing {
     public boolean BracketsCheck(){
        Stack<String> stack =new Stack<>();
         for (String element: expression) {
-            if (element == "("){
+            if (element.equals("(")){
                 stack.push(element);
-            } else if (element == ")") {
+            } else if (element.equals(")")) {
                 if(stack.isEmpty()) {
                     return false;
                 }
@@ -32,7 +32,7 @@ public class ExpressionParsing {
             return false;
         }
     }
-    public double calculation(){
+    public double calculation() throws ParseExpressionException{
         Stack<Double> valuesStack = new Stack<>();
         if(BracketsCheck()){
             PolishNotation polishNotation = new PolishNotation(expression);
@@ -40,6 +40,9 @@ public class ExpressionParsing {
             for (String element: polishNotation.getPostfixExpression()) {
                 if (element.matches("-?\\d+")){
                     valuesStack.push((double)Integer.parseInt(element));
+                }
+                else if (valuesStack.size() == 1){
+                    throw new ParseExpressionException("В выражении некорректное для вычисления количество знаков операций");
                 }
                 else {
                     valuesStack.push(calculateOperation(element,valuesStack.pop(),valuesStack.pop()));
@@ -49,11 +52,11 @@ public class ExpressionParsing {
                 return valuesStack.pop();
             }
             else {
-                throw new IllegalArgumentException();
+                throw new ParseExpressionException("В выражении некорректное для вычисления количество чисел");
             }
         }
         else {
-            throw new IllegalStateException();
+            throw new ParseExpressionException("Выражение скобочно несбалансированно");
         }
     }
     private double calculateOperation(String operation, double second, double first){
