@@ -19,7 +19,7 @@ public class PolishNotation {
     public char[] getInfExpression() {
         return infixExpression;
     }
-    public ArrayList<Character> getPostExpression() {
+    public ArrayList<Character> getPostfixExpression() {
         return postfixExpression;
     }
     public void toPostfix(){
