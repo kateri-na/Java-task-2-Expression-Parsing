@@ -3,20 +3,20 @@ package org.example;
 import java.text.ParseException;
 import java.util.Stack;
 public class ExpressionParsing {
-    private char[] expression;
+    private String[] expression;
     public ExpressionParsing(String expression){
         expression = expression.replaceAll(" ","");
-        this.expression = expression.toCharArray();
+        this.expression = expression.split("(?=[^\\d\\s])|(?<=\\d)(?=\\D)|(?<=\\D)(?=\\d)");
     }
-    public char[] getExpression() {
+    public String[] getExpression() {
         return expression;
     }
     public boolean BracketsCheck(){
-       Stack<Character> stack =new Stack<>();
-        for (char element: expression) {
-            if (element == '('){
+       Stack<String> stack =new Stack<>();
+        for (String element: expression) {
+            if (element == "("){
                 stack.push(element);
-            } else if (element == ')') {
+            } else if (element == ")") {
                 if(stack.isEmpty()) {
                     return false;
                 }
